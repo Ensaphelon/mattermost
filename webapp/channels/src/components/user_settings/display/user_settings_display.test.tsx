@@ -115,6 +115,7 @@ describe('components/user_settings/display/UserSettingsDisplay', () => {
         lastActiveDisplay: true,
         oneClickReactionsOnPosts: '',
         renderEmoticonsAsEmoji: '',
+        simplifiedView: 'false',
         emojiPickerEnabled: true,
         clickToReply: '',
         lastActiveTimeEnabled: true,
@@ -127,6 +128,12 @@ describe('components/user_settings/display/UserSettingsDisplay', () => {
 
     test('should match snapshot, collapse section', () => {
         const props = {...requiredProps, activeSection: 'collapse'};
+        const {container} = renderWithContext(<UserSettingsDisplay {...props}/>);
+        expect(container).toMatchSnapshot();
+    });
+
+    test('should match snapshot, simplified view section', () => {
+        const props = {...requiredProps, activeSection: 'simplified_view'};
         const {container} = renderWithContext(<UserSettingsDisplay {...props}/>);
         expect(container).toMatchSnapshot();
     });

@@ -344,6 +344,17 @@ describe('Client4', () => {
     });
 
     describe('doFetchWithResponse', () => {
+        test('should parse JSON responses with charset parameters', async () => {
+            const client = new Client4();
+            client.setUrl('http://mattermost.example.com');
+
+            nock('http://mattermost.example.com').
+                get('/translations/ru.json').
+                reply(200, {greeting: 'Привет'}, {'Content-Type': 'application/json; charset=utf-8'});
+
+            await expect(client.getTranslations('http://mattermost.example.com/translations/ru.json')).resolves.toEqual({greeting: 'Привет'});
+        });
+
         test('serverVersion should be set from response header', async () => {
             const client = new Client4();
             client.setUrl('http://mattermost.example.com');
@@ -451,4 +462,3 @@ describe('ClientError', () => {
         expect(error.cause).toEqual(cause);
     });
 });
-

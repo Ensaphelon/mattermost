@@ -27,6 +27,7 @@ import {a11yFocus} from 'utils/utils';
 import ManageLanguages from './manage_languages';
 import ManageTimezones from './manage_timezones';
 import RenderEmoticonsAsEmoji from './render_emoticons_as_emoji';
+import SimplifiedView from './simplified_view';
 
 import SettingDesktopHeader from '../headers/setting_desktop_header';
 import SettingMobileHeader from '../headers/setting_mobile_header';
@@ -120,6 +121,7 @@ type Props = OwnProps & {
     lastActiveDisplay: boolean;
     lastActiveTimeEnabled: boolean;
     renderEmoticonsAsEmoji: string;
+    simplifiedView: string;
     actions: {
         savePreferences: (userId: string, preferences: PreferenceType[]) => void;
         autoUpdateTimezone: (deviceTimezone: string) => void;
@@ -1172,6 +1174,45 @@ export default class UserSettingsDisplay extends React.PureComponent<Props, Stat
             </div>
         );
 
+        const simplifiedViewSection = (
+            <div>
+                <SettingItem
+                    active={this.props.activeSection === Preferences.SIMPLIFIED_VIEW}
+                    areAllSectionsInactive={this.props.activeSection === ''}
+                    title={
+                        <FormattedMessage
+                            id='user.settings.display.simplifiedViewTitle'
+                            defaultMessage='Simplified view'
+                        />
+                    }
+                    describe={
+                        this.props.simplifiedView === 'true' ? (
+                            <FormattedMessage
+                                id='user.settings.advance.on'
+                                defaultMessage='On'
+                            />
+                        ) : (
+                            <FormattedMessage
+                                id='user.settings.advance.off'
+                                defaultMessage='Off'
+                            />
+                        )
+                    }
+                    section={Preferences.SIMPLIFIED_VIEW}
+                    updateSection={this.updateSection}
+                    max={(
+                        <SimplifiedView
+                            simplifiedView={this.props.simplifiedView}
+                            user={this.props.user}
+                            updateSection={this.updateSection}
+                            actions={this.props.actions}
+                        />
+                    )}
+                />
+                <div className='divider-dark'/>
+            </div>
+        );
+
         return (
             <div
                 id='displaySettings'
@@ -1200,6 +1241,7 @@ export default class UserSettingsDisplay extends React.PureComponent<Props, Stat
                     />
                     <div className='divider-dark first'/>
                     {themeSection}
+                    {simplifiedViewSection}
                     {collapsedReplyThreads}
                     {clockSection}
                     {teammateNameDisplaySection}

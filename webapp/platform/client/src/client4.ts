@@ -4877,7 +4877,7 @@ export default class Client4 {
         let data;
         try {
             const contentType = headers.get('Content-Type');
-            if (contentType === 'application/json') {
+            if (contentType?.startsWith('application/json')) {
                 data = await response.json();
             } else if (contentType === 'application/x-ndjson') {
                 const text = await response.text();

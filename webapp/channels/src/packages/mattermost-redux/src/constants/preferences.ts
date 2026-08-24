@@ -51,6 +51,8 @@ const Preferences = {
     CATEGORY_ADVANCED_SETTINGS: 'advanced_settings',
     ADVANCED_FILTER_JOIN_LEAVE: 'join_leave',
     RENDER_EMOTICONS_AS_EMOJI: 'render_emoticons_as_emoji',
+    SIMPLIFIED_VIEW: 'simplified_view',
+    SIMPLIFIED_VIEW_DEFAULT: 'false',
     ADVANCED_CODE_BLOCK_ON_CTRL_ENTER: 'code_block_ctrl_enter',
     ADVANCED_SEND_ON_CTRL_ENTER: 'send_on_ctrl_enter',
     ADVANCED_SYNC_DRAFTS: 'sync_drafts',

@@ -1,0 +1,16 @@
+# syntax=docker/dockerfile:1
+
+FROM node:24-bookworm-slim AS webapp-builder
+
+WORKDIR /src/webapp
+COPY webapp/ ./
+
+RUN npm ci --include=dev \
+    && npm run build
+
+
+FROM mattermost/mattermost-enterprise-edition:11.11.0-rc1
+
+COPY --from=webapp-builder --chown=2000:2000 \
+    /src/webapp/channels/dist/ \
+    /mattermost/client/
